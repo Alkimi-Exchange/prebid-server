@@ -1,4 +1,4 @@
-endpoint: https://exchange.alkimi-onboarding.com/server/bid
+endpoint: http://exchange:8080/server/bid
 maintainer:
   email: support@alkimi.org
 gvlVendorID: 1169

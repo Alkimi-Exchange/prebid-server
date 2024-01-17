@@ -4,11 +4,11 @@ pipeline {
     environment {
         CI = "false"
         MY_VERSION = sh(
-                script: 'if [[ $BRANCH_NAME =~ "-alkimi" ]]; then echo "${BRANCH_NAME}"; else echo "0.0.${BUILD_ID}-${BRANCH_NAME}-SNAPSHOT"; fi',
+                script: 'if [[ $BRANCH_NAME =~ "^\\d+\\.\\d+\\.\\d+-alkimi" ]]; then echo "${BRANCH_NAME}"; else echo "0.0.${BUILD_ID}-${BRANCH_NAME}-SNAPSHOT"; fi',
                 returnStdout: true
         ).trim()
         MY_ENV = sh(
-                script: 'if [[ $BRANCH_NAME =~ "REL_V" ]]; then echo "prod"; elif [[ $BRANCH_NAME =~ "sprint-" ]]; then echo qa; else echo "dev"; fi',
+                script: 'if [[ $BRANCH_NAME =~ "^\\d+\\.\\d+\\.\\d+-alkimi$" ]]; then echo "prod"; elif [[ $BRANCH_NAME =~ "^\\d+\\.\\d+\\.\\d+-alkimi-qa$" ]]; then echo qa; else echo "dev"; fi',
                 returnStdout: true
         ).trim()
         DO_API_TOKEN = vault path: 'jenkins/digitalocean', key: 'ro_token'
@@ -22,6 +22,13 @@ pipeline {
            steps {
                script {
                   sh "./validate.sh"
+               }
+           }
+        }
+        stage('Configure') {
+           steps {
+               script {
+                  sh 'cp ./static/bidder-info/alkimi.yaml.${MY_ENV} ./static/bidder-info/alkimi.yaml'
                }
            }
         }

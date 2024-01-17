@@ -1,4 +1,4 @@
-endpoint: https://exchange.alkimi-onboarding.com/server/bid
+endpoint: https://exchange.alkimi-onboarding-qa.com/server/bid
 maintainer:
   email: support@alkimi.org
 gvlVendorID: 1169
@@ -15,5 +15,5 @@ capabilities:
       - audio
 userSync:
   redirect:
-    url: "https://user-sync.alkimi-onboarding.com/ssp-sync?gdpr={{.GDPR}}&us_privacy={{.USPrivacy}}&redirect={{.RedirectURL}}"
+    url: "https://user-sync.alkimi-onboarding-qa.com/ssp-sync?gdpr={{.GDPR}}&us_privacy={{.USPrivacy}}&redirect={{.RedirectURL}}"
     userMacro: "${UID}"
