@@ -28,7 +28,7 @@ pipeline {
         stage('Configure') {
            steps {
                script {
-                  sh 'cp ./static/bidder-info/alkimi.yaml.${MY_ENV} ./static/bidder-info/alkimi.yaml'
+                  sh 'cp -f ./static/bidder-info/alkimi.yaml.${MY_ENV} ./static/bidder-info/alkimi.yaml'
                }
            }
         }
