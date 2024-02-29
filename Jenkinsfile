@@ -50,7 +50,7 @@ pipeline {
                     withCredentials([file(credentialsId: 'exchange_service_account_file', variable: 'sa_file')]) {
                         sh "cp -f ${sa_file} ./service_account_gcp.json"
                     }
-                    sh "~/.local/bin/ansible-playbook ./apps/dev/prebid-server-go.yml --extra-vars='workspacePath=${env.WORKSPACE}' "
+                    sh "ansible-playbook ./apps/dev/prebid-server-go.yml --extra-vars='workspacePath=${env.WORKSPACE}' "
                 }
             }
         }
