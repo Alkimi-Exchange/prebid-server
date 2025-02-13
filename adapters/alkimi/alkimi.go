@@ -68,7 +68,7 @@ func updateImps(bidRequest openrtb2.BidRequest) ([]openrtb2.Imp, []error) {
 	updatedImps := make([]openrtb2.Imp, 0, len(bidRequest.Imp))
 	for _, imp := range bidRequest.Imp {
 
-		var bidderExt extObj
+		var bidderExt = make(map[string]json.RawMessage)
 		var extImpAlkimi openrtb_ext.ExtImpAlkimi
 
 		if err := jsonutil.Unmarshal(imp.Ext, &bidderExt); err != nil {
@@ -76,7 +76,10 @@ func updateImps(bidRequest openrtb2.BidRequest) ([]openrtb2.Imp, []error) {
 			continue
 		}
 
-		extImpAlkimi = bidderExt.AlkimiBidderExt
+		if err := jsonutil.Unmarshal(bidderExt["bidder"], &extImpAlkimi); err != nil {
+			errs = append(errs, err)
+			continue
+		}
 
 		var bidFloorPrice floors.Price
 		bidFloorPrice.FloorMinCur = imp.BidFloorCur
@@ -93,8 +96,14 @@ func updateImps(bidRequest openrtb2.BidRequest) ([]openrtb2.Imp, []error) {
 		temp := extImpAlkimi
 		temp.AdUnitCode = imp.ID
 
+		tempJson, err := json.Marshal(temp)
+		if err != nil {
+			errs = append(errs, err)
+			continue
+		}
+
 		newExt := bidderExt
-		newExt.AlkimiBidderExt = temp
+		newExt["bidder"] = tempJson
 
 		newExtJson, err := json.Marshal(newExt)
 		if err != nil {
