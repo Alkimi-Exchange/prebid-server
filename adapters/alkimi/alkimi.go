@@ -24,11 +24,6 @@ type adapter struct {
 	endpoint string
 }
 
-type extObj struct {
-	adapters.ExtImpBidder
-	AlkimiBidderExt openrtb_ext.ExtImpAlkimi `json:"bidder"`
-}
-
 // Builder builds a new instance of the Alkimi adapter for the given bidder with the given config.
 func Builder(bidderName openrtb_ext.BidderName, config config.Adapter, server config.Server) (adapters.Bidder, error) {
 	endpointURL, err := url.Parse(config.Endpoint)
