@@ -76,6 +76,8 @@ func updateImps(bidRequest openrtb2.BidRequest) ([]openrtb2.Imp, []error) {
 			continue
 		}
 
+		extImpAlkimi = bidderExt.AlkimiBidderExt
+
 		var bidFloorPrice floors.Price
 		bidFloorPrice.FloorMinCur = imp.BidFloorCur
 		bidFloorPrice.FloorMin = imp.BidFloor
