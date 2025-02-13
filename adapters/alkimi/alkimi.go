@@ -88,7 +88,7 @@ func updateImps(bidRequest openrtb2.BidRequest) ([]openrtb2.Imp, []error) {
 		imp.Instl = extImpAlkimi.Instl
 		imp.Exp = extImpAlkimi.Exp
 
-		temp := *extImpAlkimi
+		temp := extImpAlkimi
 		temp.AdUnitCode = imp.ID
 
 		tempJson, err := json.Marshal(temp)
@@ -97,7 +97,7 @@ func updateImps(bidRequest openrtb2.BidRequest) ([]openrtb2.Imp, []error) {
 			continue
 		}
 
-		newExt := *imp.Ext
+		newExt := imp.Ext
 		newExt.Bidder = tempJson
 
 		newExtJson, err := json.Marshal(newExt)
