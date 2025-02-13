@@ -21,6 +21,7 @@ pipeline {
         stage('Tests') {
            steps {
                script {
+                  sh "sed -i 's/go 1.22/go 1.22.0/g' go.mod"
                   sh "./validate.sh"
                }
            }
