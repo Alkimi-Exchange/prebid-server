@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   run-coverage:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Install Go
         uses: actions/setup-go@v5
